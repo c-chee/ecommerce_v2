@@ -31,7 +31,7 @@ export default function Navbar() {
 
                 {/* Logo */}
                 <Link href='/'>
-                    <img src='/wabisabi_title_white.png' alt='Logo' className='h-18 w-auto' />
+                    <img src='/wabisabi_title_white.png' alt='WABI SABI jpS' className='h-18 w-auto' />
                 </Link>
 
 
