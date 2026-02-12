@@ -1,11 +1,11 @@
 /**
  * This files is essentially --> <html> + <head> + layout 
  */
-import { Montserrat, Walter_Turncoat } from "next/font/google";
+import { Montserrat, Walter_Turncoat } from 'next/font/google';
 import './globals.css';
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from '@/app/components/Navbar';
+import Footer from '@/app/components/Footer';
 
 /**
  * ===========================
@@ -14,13 +14,13 @@ import Footer from "@/components/Footer";
  */
 const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: "400",
+  weight: ["400", "500", "600", "700", "800"],
   variable: '--font-montserrat',
 });
 
 const walter = Walter_Turncoat({
   subsets: ['latin'],
-  weight: "400",
+  weight: '400',
   variable: '--font-walter',
 });
 
