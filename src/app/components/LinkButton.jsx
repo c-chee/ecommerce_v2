@@ -12,7 +12,7 @@ export default function LinkButton({ href, children, onClick, className }) {
         <Link
             href={href}
             onClick={onClick}
-            className={`text-white hover:text-orange-500 hover:underline underline-offset-8 tracking-wider ${className ?? ''}`}
+            className={`text-[var(--light-orange)] hover:text-[var(--orange)] hover:underline underline-offset-8 tracking-wider ${className ?? ''}`}
             >
             {children}
         </Link>
