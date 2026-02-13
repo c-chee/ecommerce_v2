@@ -17,7 +17,7 @@ export default function Footer() {
                     <img
                         src='/wabisabi_logo_white.png'
                         alt='WABI SABI jp'
-                        className='w-52 object-cover'
+                        className='w-[10em] object-cover'
                     />
                 </Link>
 

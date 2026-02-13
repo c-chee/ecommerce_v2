@@ -30,10 +30,12 @@ export default function Navbar() {
                 <IconButton onClick={() => setMenuOpen(!menuOpen)} className='text-3xl'>☰</IconButton>
 
                 {/* Logo */}
-                <Link href='/' className='md:flex flex-col justify-start'>
-                    <img src='/wabisabi_title_white.png' alt='WABI SABI jpS' className='w-64 h-auto' />
+                <Link href='/' className='md:flex flex-col justify-start w-auto'>
+                    <img src='/wabisabi_title_crop.png' alt='WABI SABI jp' className='w-[175px] h-auto' />
                 </Link>
 
+                {/* Shop placeholder */}
+                <div></div>
 
             </div>
 
@@ -43,26 +45,27 @@ export default function Navbar() {
                 {/* Logo */}
                 <Link
                 href='/'
-                className={`overflow-hidden flex items-center justify-center relative z-10
+                className={`flex items-center justify-center relative z-10
                 transition-all duration-700 ${scrolled ? 'h-14' : 'h-24'}`}
                 >
                     <div className='relative'>
                         {/* Full Logo */}
                         <img
                             src='/wabisabi_logo_white.png'
-                            alt='Logo'
-                            className={`w-auto h-40 transition-all duration-700
-                            ${scrolled ? 'opacity-0 scale-90' : 'opacity-100 scale-100'}`}
+                            alt='WABI SABI jp'
+                            className={`w-[6.5em] h-auto transition-all duration-700
+                            ${scrolled ? 'opacity-0 scale-*' : 'opacity-100 scale-100'}`}
                         />
 
                         {/* Title */}
                         <img
-                            src='/wabisabi_title_white.png'
-                            alt='Title'
-                            className={`max-w-[10rem] h-auto absolute inset-0 m-auto transition-all duration-700
-                            ${scrolled ? 'opacity-100 scale-110' : 'opacity-0 scale-90'}`}
+                            src='/wabisabi_title_crop.png'
+                            alt='WABI SABI jp'
+                            className={`w-[14em] h-auto absolute inset-0 m-auto transition-all duration-700
+                            ${scrolled ? 'opacity-100 scale-150' : 'opacity-0 scale-90'}`}
                         />
                     </div>
+
                 </Link>
 
                 
@@ -78,30 +81,29 @@ export default function Navbar() {
             </nav>
 
             {/* --- Hidden Menu (Mobile Overlay) --- */}
-            {menuOpen && (
-                <>
-                {/* Overlay */}
-                <div
-                    className='fixed inset-0 bg-black/60 z-40'
-                    onClick={() => setMenuOpen(false)}
-                />
-                
-                {/* Side Menu */}
-                <nav className='fixed top-0 left-0 w-64 h-full bg-orange-800 z-50 p-8 flex flex-col gap-6'>
-                    <IconButton
-                        onClick={() => setMenuOpen(false)}
-                        className='text-2xl mb-4'
-                        >
-                        ×
-                    </IconButton>
+            {/* --- Hidden Menu (Mobile Overlay) --- */}
 
-                    <LinkButton href='/' onClick={() => setMenuOpen(false)}>Home</LinkButton>
-                    <LinkButton href='/about' onClick={() => setMenuOpen(false)}>About</LinkButton>
-                    <LinkButton href='/products' onClick={() => setMenuOpen(false)}>Products</LinkButton>
-                    <LinkButton href='/contact' onClick={() => setMenuOpen(false)}>Contact</LinkButton>
-                </nav>
-                </>
-            )}
+            {/* Overlay */}
+            <div
+            className={`fixed inset-0 bg-black/60 z-40 transition-opacity duration-300
+            ${menuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}
+            onClick={() => setMenuOpen(false)}
+            />
+
+            {/* Side Menu */}
+            <nav
+            className={`fixed top-0 left-0 w-64 h-full bg-[var(--dark-orange)] z-50 p-8 flex flex-col gap-6
+            transform transition-transform duration-400 ease-out
+            ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
+            >
+                <IconButton onClick={() => setMenuOpen(false)} className="text-4xl ml-auto">×</IconButton>
+
+                <LinkButton href="/" onClick={() => setMenuOpen(false)} className='text-white uppercase font-medium'>Home</LinkButton>
+                <LinkButton href="/about" onClick={() => setMenuOpen(false)} className='text-white uppercase font-medium'>About</LinkButton>
+                <LinkButton href="/products" onClick={() => setMenuOpen(false)} className='text-white uppercase font-medium'>Products</LinkButton>
+                <LinkButton href="/contact" onClick={() => setMenuOpen(false)} className='text-white uppercase font-medium'>Contact</LinkButton>
+            </nav>
+
         </header>
     );
 }
