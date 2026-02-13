@@ -17,12 +17,12 @@ export default function Footer() {
                     <img
                         src="/wabisabi_logo_white.png"
                         alt="WABI SABI jp"
-                        className="w-52"
+                        className="w-52 object-cover"
                     />
                 </Link>
 
                 {/* Pages */}
-                <div className="flex flex-col justify-start items-center gap-2 pt-4">
+                <div className="flex flex-col justify-start items-center gap-2 p-4">
                     <h2 className="uppercase font-semibold tracking-wider">
                         - Pages -
                     </h2>
