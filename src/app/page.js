@@ -1,4 +1,9 @@
-import Image from 'next/image';
+// Page Title
+export async function generateMetadata() {
+  return {
+    title: `Home | WabiSabi.jp`, // dynamically adds page name
+  };
+}
 
 export default function Home() {
   return (
