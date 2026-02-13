@@ -22,16 +22,16 @@ export default function Navbar() {
     }, []);
 
     return (
-        <header className='fixed w-full top-0 z-50 bg-black shadow-[0px_2px_2px_rgb(62,62,62)]'>
+        <header className='fixed w-full top-0 z-50 bg-[var(--grey-black)] shadow-[0px_2px_2px_rgb(62,62,62)]'>
 
             {/* --- Top Bar: Hamburger + Logo (Mobile) --- */}
-            <div className='flex items-center justify-between p-4 md:hidden'>
+            <div className='flex items-center justify-between p-4 md:hidden h-20 '>
                 {/* Hamburger Button */}
                 <IconButton onClick={() => setMenuOpen(!menuOpen)} className='text-3xl'>☰</IconButton>
 
                 {/* Logo */}
-                <Link href='/'>
-                    <img src='/wabisabi_title_white.png' alt='WABI SABI jpS' className='h-18 w-auto' />
+                <Link href='/' className='md:flex flex-col justify-start'>
+                    <img src='/wabisabi_title_white.png' alt='WABI SABI jpS' className='w-64 h-auto' />
                 </Link>
 
 
@@ -42,17 +42,29 @@ export default function Navbar() {
             
                 {/* Logo */}
                 <Link
-                    href='/'
-                    className={`overflow-hidden flex items-center justify-center relative z-10 transition-all duration-700
-                    ${scrolled ? 'h-12' : 'h-24'}`}
-                    >
-                    <img
-                        src={scrolled ? '/wabisabi_title_white.png' : '/wabisabi_logo_white.png'}
-                        alt='Logo'
-                        className={`w-auto transition-all duration-300
-                        ${scrolled ? 'h-62 translate-y-2' : 'h-40'}`}
-                    />
+                href='/'
+                className={`overflow-hidden flex items-center justify-center relative z-10
+                transition-all duration-700 ${scrolled ? 'h-14' : 'h-24'}`}
+                >
+                    <div className='relative'>
+                        {/* Full Logo */}
+                        <img
+                            src='/wabisabi_logo_white.png'
+                            alt='Logo'
+                            className={`w-auto h-40 transition-all duration-700
+                            ${scrolled ? 'opacity-0 scale-90' : 'opacity-100 scale-100'}`}
+                        />
+
+                        {/* Title */}
+                        <img
+                            src='/wabisabi_title_white.png'
+                            alt='Title'
+                            className={`max-w-[10rem] h-auto absolute inset-0 m-auto transition-all duration-700
+                            ${scrolled ? 'opacity-100 scale-110' : 'opacity-0 scale-90'}`}
+                        />
+                    </div>
                 </Link>
+
                 
 
                 {/* Nav Links */}
