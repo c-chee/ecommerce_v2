@@ -1,7 +1,7 @@
 // Page Title
 export async function generateMetadata() {
   return {
-    title: `Home | WabiSabi.jp`, // dynamically adds page name
+    title: `Homegg | WabiSabi.jp`, // dynamically adds page name
   };
 }
 
