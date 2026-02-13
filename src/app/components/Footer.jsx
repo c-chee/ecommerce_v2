@@ -53,7 +53,7 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom row */}
-                <p className='col-span-1 md:col-span-3 text-center pt-4'>
+                <p className='col-span-1 md:col-span-3 text-center pt-4 opacity-60'>
                     &copy; WabiSabi.jp
                 </p>
             </div>
