@@ -1,5 +1,5 @@
 'use client';
-import LinkButton from './LinkButton';
+import LinkButton from '../ui/LinkButton';
 import Link from 'next/link';
 
 export default function Footer() {

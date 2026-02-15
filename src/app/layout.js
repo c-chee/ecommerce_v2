@@ -4,8 +4,8 @@
 import { Montserrat, Walter_Turncoat } from 'next/font/google';
 import './globals.css';
 
-import Navbar from '@/app/components/Navbar';
-import Footer from '@/app/components/Footer';
+import Navbar from '@/app/components/layout/Navbar';
+import Footer from '@/app/components/layout/Footer';
 
 /**
  * ===========================
@@ -40,11 +40,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en'>
-      <body className={`${montserrat.variable} ${walter.variable}`}>
+      <body className={`${montserrat.variable} ${walter.variable} min-h-screen flex flex-col`}>
 
         <Navbar />
-
-        {children}
+        
+        <main className='flex-1'>
+          {children}
+        </main>
 
         <Footer />
       </body>

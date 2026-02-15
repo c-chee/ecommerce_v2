@@ -23,6 +23,9 @@
     --foreground: #ededed;
   }
 } */
+html, body {
+  height: 110%;
+}
 
 body {
   background: var(--background);

@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import LinkButton from './LinkButton';
-import IconButton from './IconButton';
+import LinkButton from '../ui/LinkButton';
+import IconButton from '../ui/IconButton';
 import Link from 'next/link';
 
 export default function Navbar() {
@@ -22,7 +22,7 @@ export default function Navbar() {
     }, []);
 
     return (
-        <header className='fixed w-full top-0 z-50 bg-[var(--grey-black)] shadow-[0px_2px_2px_rgb(62,62,62)]'>
+        <header className='sticky w-full top-0 z-50 bg-[var(--grey-black)] shadow-[0px_2px_2px_rgb(62,62,62)]'>
 
             {/* --- Top Bar: Hamburger + Logo (Mobile) --- */}
             <div className='flex items-center justify-between p-4 md:hidden h-20 '>
