@@ -1,10 +1,10 @@
 'use client';
-import LinkButton from '../ui/LinkButton';
+import LinkButton from '@/app/components/ui/LinkButton';
 import Link from 'next/link';
 
 export default function Footer() {
     return (
-        <footer className='w-full bg-[var(--grey-black)] text-white'>
+        <footer className='w-full bg-black text-white'>
             <div
                 className='grid grid-cols-1 md:grid-cols-3 gap-4 p-6
                 max-w-[1300px] mx-auto text-center md:text-left'

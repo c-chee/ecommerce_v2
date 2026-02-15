@@ -1,5 +1,4 @@
-// import { Home } from "next/document"; 
-
+import Hero from '@/app/components/sections/hero';
 // Page Title
 export async function generateMetadata() {
   return {
@@ -10,7 +9,7 @@ export async function generateMetadata() {
 export default function Home() {
   return (
     <div className='flex items-start justify-center'>
-      <p>Home Content</p>
+      <Hero />
     </div>
   );
 }
