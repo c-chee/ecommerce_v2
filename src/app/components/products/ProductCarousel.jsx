@@ -17,6 +17,7 @@ export default function ProductCarousel() {
     const scroll = (direction) => {
         const container = containerRef.current;
         if (!container) return;
+
         const scrollAmount = container.offsetWidth * 0.8;
 
         container.scrollBy({
@@ -26,14 +27,17 @@ export default function ProductCarousel() {
     };
 
     return (
-        <section className='relative w-full flex flex-col items-center ' >
-            <h2 className='text-3xl font-semibold mb-6'>- Featured Products -</h2>
+        <section className='relative w-full'>
+            <h2 className='text-2xl sm:text-3xl font-semibold mb-6 text-center'>
+                - Featured Products -
+            </h2>
 
             <div className='relative flex items-center'>
-                {/* Left Arrow */}
+
+                {/* Left Arrow (hidden on mobile) */}
                 <button
                     onClick={() => scroll('left')}
-                    className='w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/30 shadow-md cursor-pointer hover:bg-white/30 transition z-20 mr-2'
+                    className='hidden md:flex w-10 h-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/30 shadow-md cursor-pointer hover:bg-white/30 transition z-20 mr-3'
                 >
                     ←
                 </button>
@@ -41,12 +45,18 @@ export default function ProductCarousel() {
                 {/* Scroll container */}
                 <div
                     ref={containerRef}
-                    className='flex gap-6 overflow-x-auto scroll-smooth no-scrollbar flex-1 py-4'
+                    className='flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth no-scrollbar flex-1 py-4 px-2 sm:px-0'
                 >
                     {products.map((p) => (
                         <div
                             key={p.id}
-                            className='min-w-full sm:min-w-[50%] md:min-w-[33.33%] xl:min-w-[25%]'
+                            className='
+                                min-w-[90%]
+                                sm:min-w-[70%]
+                                md:min-w-[50%]
+                                lg:min-w-[33%]
+                                xl:min-w-[25%]
+                            '
                         >
                             <ProductCard product={p} />
                         </div>
@@ -56,10 +66,11 @@ export default function ProductCarousel() {
                 {/* Right Arrow */}
                 <button
                     onClick={() => scroll('right')}
-                    className='w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/30 shadow-md cursor-pointer hover:bg-white/30 transition z-20 ml-2'
+                    className='hidden md:flex w-10 h-10 items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/30 shadow-md cursor-pointer hover:bg-white/30 transition z-20 ml-3'
                 >
                     →
                 </button>
+
             </div>
         </section>
     );
