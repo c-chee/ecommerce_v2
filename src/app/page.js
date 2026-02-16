@@ -10,7 +10,7 @@ export async function generateMetadata() {
 
 export default function Home() {
   return (
-    <div className='flex flex-col items-start justify-center'>
+    <div className='flex flex-col items-start justify-center overflow-x-hidden'>
       <Hero />
       <Features />
     </div>
