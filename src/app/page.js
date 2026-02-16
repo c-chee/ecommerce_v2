@@ -1,4 +1,6 @@
 import Hero from '@/app/components/sections/hero';
+import Features from '@/app/components/sections/features'
+
 // Page Title
 export async function generateMetadata() {
   return {
@@ -8,8 +10,9 @@ export async function generateMetadata() {
 
 export default function Home() {
   return (
-    <div className='flex items-start justify-center'>
+    <div className='flex flex-col items-start justify-center'>
       <Hero />
+      <Features />
     </div>
   );
 }
