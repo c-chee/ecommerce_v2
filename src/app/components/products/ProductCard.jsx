@@ -2,7 +2,7 @@
 
 export default function ProductCard({ product }) {
     return (
-        <div className='bg-white/30 border border-white/40 rounded-2xl shadow-lg p-6 h-[24rem] flex flex-col transition-transform cursor-pointer'>
+        <div className='bg-[var(--light-blue)]/20 border border-white/40 rounded-2xl shadow-lg p-6 h-[24rem] flex flex-col transition-transform cursor-pointer'>
             {/* backdrop-blur-sm */}
 
             <img
