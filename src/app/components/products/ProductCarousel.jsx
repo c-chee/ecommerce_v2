@@ -26,8 +26,8 @@ export default function ProductCarousel() {
     };
 
     return (
-        <section className='relative w-full'>
-            <h2 className='text-3xl font-semibold mb-6'>Featured Products</h2>
+        <section className='relative w-full flex flex-col items-center ' >
+            <h2 className='text-3xl font-semibold mb-6'>- Featured Products -</h2>
 
             <div className='relative flex items-center'>
                 {/* Left Arrow */}
