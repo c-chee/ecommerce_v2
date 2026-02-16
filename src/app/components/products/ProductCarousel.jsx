@@ -10,11 +10,8 @@ export default function ProductCarousel() {
     useEffect(() => {
         fetch('/api/products')
             .then(res => res.json())
-            .then(data => {
-                console.log("Products fetched:", data);
-                setProducts(data);
-            })
-            .catch(err => console.error("Fetch error:", err));
+            .then(data => setProducts(data.slice(0, 8)))
+            .catch(err => console.error('Fetch error:', err));
     }, []);
 
     const scroll = (direction) => {
@@ -30,40 +27,40 @@ export default function ProductCarousel() {
 
     return (
         <section className='relative w-full'>
-            <h2 className='text-3xl font-semibold mb-6'>
-                Featured Products
-            </h2>
+            <h2 className='text-3xl font-semibold mb-6'>Featured Products</h2>
 
-            {/* Left Arrow */}
-            <button
-                onClick={() => scroll('left')}
-                className='absolute left-0 top-1/2 z-10 -translate-y-1/2 bg-black text-white px-3 py-2'
-            >
-                ←
-            </button>
+            <div className='relative flex items-center'>
+                {/* Left Arrow */}
+                <button
+                    onClick={() => scroll('left')}
+                    className='w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/30 shadow-md cursor-pointer hover:bg-white/30 transition z-20 mr-2'
+                >
+                    ←
+                </button>
 
-            {/* Scroll container */}
-            <div
-                ref={containerRef}
-                className='flex gap-6 overflow-x-auto scroll-smooth no-scrollbar px-10'
-            >
-                {products.map((p) => (
-                    <div
-                        key={p.id}
-                        className='min-w-full sm:min-w-[50%] md:min-w-[33.33%] xl:min-w-[25%]'
-                    >
-                        <ProductCard product={p} />
-                    </div>
-                ))}
+                {/* Scroll container */}
+                <div
+                    ref={containerRef}
+                    className='flex gap-6 overflow-x-auto scroll-smooth no-scrollbar flex-1 py-4'
+                >
+                    {products.map((p) => (
+                        <div
+                            key={p.id}
+                            className='min-w-full sm:min-w-[50%] md:min-w-[33.33%] xl:min-w-[25%]'
+                        >
+                            <ProductCard product={p} />
+                        </div>
+                    ))}
+                </div>
+
+                {/* Right Arrow */}
+                <button
+                    onClick={() => scroll('right')}
+                    className='w-10 h-10 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/30 shadow-md cursor-pointer hover:bg-white/30 transition z-20 ml-2'
+                >
+                    →
+                </button>
             </div>
-
-            {/* Right Arrow */}
-            <button
-                onClick={() => scroll('right')}
-                className='absolute right-0 top-1/2 z-10 -translate-y-1/2 bg-black text-white px-3 py-2'
-            >
-                →
-            </button>
         </section>
     );
 }
