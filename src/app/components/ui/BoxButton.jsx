@@ -8,6 +8,7 @@ export default function BoxButton({
     href,
     className = '',
     type = 'button',
+    disabled = false,
     }) {
 
     const styles = `
@@ -21,6 +22,8 @@ export default function BoxButton({
         transition-colors duration-300
         hover:border-[var(--orange)]
         cursor-pointer
+        disabled:opacity-50 disabled:cursor-not-allowed
+        tracking-wider
         ${className}
     `;
 
@@ -35,7 +38,6 @@ export default function BoxButton({
                 group-hover:scale-x-100
                 origin-left
                 transition-transform duration-500 ease-in-out
-                hover:border-[var(--orange)]
                 '
             />
 
@@ -57,7 +59,12 @@ export default function BoxButton({
 
     // Normal button
     return (
-        <button type={type} onClick={onClick} className={styles}>
+        <button
+            type={type}
+            onClick={onClick}
+            disabled={disabled}
+            className={styles}
+        >
             {content}
         </button>
     );

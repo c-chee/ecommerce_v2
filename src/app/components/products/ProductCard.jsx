@@ -2,7 +2,7 @@
 
 export default function ProductCard({ product }) {
     return (
-        <div className='bg-[var(--light-blue)]/20 border border-white/40 rounded-xl shadow-lg p-6 h-[24rem] flex flex-col transition-transform hover:scale-[1.02] cursor-pointer'>
+        <div className='bg-[var(--light-blue)]/20 border border-[var(--light-orange)]/40 rounded-xl shadow-lg p-6 h-[24rem] flex flex-col transition-transform hover:scale-[1.02] cursor-pointer'>
             {/* backdrop-blur-sm */}
 
             <img
