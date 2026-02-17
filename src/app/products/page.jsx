@@ -67,8 +67,8 @@ export default function Products() {
     ];
 
     return (
-        <section className='bg-[var(--grey-black)]'>
-            <div className='max-w-7xl mx-auto px-6 py-16'>
+        <section className='bg-[var(--grey-black)] pb-28'>
+            <div className='max-w-7xl mx-auto px-6 lg:py-16'>
                 <h1 className='text-3xl font-semibold mb-6'>Products</h1>
 
                 {/* Category Tabs */}

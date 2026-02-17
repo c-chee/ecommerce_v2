@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
 
         <Navbar />
         
-        <main className='flex flex-col pt-40'>
+        <main className='flex flex-col pt-20 md:pt-40 grow bg-[var(--grey-black)]'>
           {children}
         </main>
 

@@ -18,7 +18,7 @@ export default function Contact() {
 
     return (
         <section className='bg-[var(--grey-black)]'>
-            <div className='flex flex-col max-w-7xl mx-auto px-6 py-16 place-items-center'>
+            <div className='flex flex-col lg:max-w-7xl mx-auto px-6 lg:py-16 place-items-center'>
 
                 <section className='place-self-start pb-10'>
                     <h1 className='text-3xl font-semibold mb-6 place-self-start'>Contact</h1>
