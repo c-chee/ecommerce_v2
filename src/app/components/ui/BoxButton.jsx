@@ -35,6 +35,7 @@ export default function BoxButton({
                 group-hover:scale-x-100
                 origin-left
                 transition-transform duration-500 ease-in-out
+                hover:border-[var(--orange)]
                 '
             />
 

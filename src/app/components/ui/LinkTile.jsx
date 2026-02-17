@@ -9,7 +9,7 @@ export default function LinkTile({ title, image, slug }) {
         // slug comes from the categories filter onthe products page
         <Link
             href={`/products/category/${slug}`}
-            className='group relative overflow-hidden rounded-xl block'
+            className='group relative overflow-hidden rounded-xl block '
         >
 
             {/* Background Image */}

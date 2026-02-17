@@ -11,7 +11,7 @@ export default function CategoryTab({
                     key={cat.id}
                     onClick={() => onChange(cat.id)}
                     className={`
-                        px-4 py-2 rounded-full border transition
+                        px-4 py-2 rounded-full border transition cursor-pointer
                         ${active === cat.id
                             ? 'bg-[var(--light-orange)] text-black'
                             : 'border-[var(--light-orange)]/40 text-white hover:bg-white/10'}
