@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react'; // Import react hooks
 
 // Component Imports
-import TextOverMedia from '../components/sections/TextOverMedia';
+import TextOverMedia from '@/app/components/sections/TextOverMedia';
+import QuoteBox from '@/app/components/ui/Quote';
 
 // react functional component
 // 'export default' allows other parts of your app to import this component
@@ -26,7 +27,7 @@ export default function About() {
 
                     >
                         <div className='flex flex-col max-w-3xl space-y-4 mx-auto text-center font-[var(--font-walter)]'>
-                            <p style={{ fontFamily: "var(--font-walter)" }} className='text-[1.5em] md:text-[2.5em]  lg:text-[3.5em]'>Beauty in Imperfection</p>
+                            <p style={{ fontFamily: 'var(--font-walter)' }} className='text-[1.5em] md:text-[2.5em]  lg:text-[3.5em]'>Beauty in Imperfection</p>
                         </div>
                     </TextOverMedia>
                     
@@ -64,16 +65,13 @@ export default function About() {
                     </TextOverMedia>
 
                     {/* Brand Quotes */}
-                    <TextOverMedia>
-                        <div>
-                
-                            <p>Appreciate and value your build, no matter the stage it's in. </p>
-                            
-                            <p>When you display your work, you're celebrating its uniqueness, its flaws, and the story behind it. Every mark, every imperfection, tells a part of the journey, making it truly yours.</p>
-
-                
-                        </div>
-                    </TextOverMedia>
+                    <QuoteBox
+                        quote="Appreciate and value your build, no matter the stage it's in. When you display your work, 
+                                you're celebrating its uniqueness, its flaws, and the story behind it. Every mark, every imperfection, 
+                                tells a part of the journey, making it truly yours."
+                        author="WabiSabi Creator"
+                        imgSrc="/icon.png"
+                    />
 
                 </section>
             </div>
