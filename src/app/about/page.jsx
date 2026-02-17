@@ -2,17 +2,67 @@
 import { useEffect, useState } from 'react'; // Import react hooks
 
 // Component Imports
+import TextOverMedia from '../components/sections/TextOverMedia';
 
 // react functional component
 // 'export default' allows other parts of your app to import this component
 export default function About() {
     return (
         <section className='bg-[var(--grey-black)]'>
-            <div className='flex flex-col lg:max-w-7xl mx-auto px-6 lg:py-16 place-items-center'>
+            <div className='flex flex-col lg:max-w-7xl mx-auto px-6 lg:py-16 justify-center'>
 
-                <section className='place-self-start pb-10'>
+                <section className='pb-10'>
                     <h1 className='text-3xl font-semibold mb-6 place-self-start'>About</h1>
-                    <p>About this site...</p>
+                    
+                    <TextOverMedia>
+                        <div>
+                            <h2 className='text-3xl font-semibold'>
+                                Wabi Sabi (侘寂)
+                            </h2>
+
+                            <p>
+                                <b>'Beauty in Imperfection'</b> Meaning, there's an aesthetic
+                                to something not being perfect.
+                            </p>
+
+                            <p>
+                                A traditional Japanese aesthetic concept celebrating
+                                <b> imperfection</b>, <b>impermanence</b>, and the beauty of
+                                <b> natural simplicity</b>.
+                            </p>
+
+                            <p>
+                                We hope our brand brings people with the same passion for the
+                                automotive industry together to learn and grow.
+                            </p>
+
+                            <p>
+                                Through our products we create a common passion.
+                            </p>
+
+                
+                        </div>
+                    </TextOverMedia>
+
+                    <TextOverMedia
+                        video='/media/akuna.mp4'
+                        className='
+                            [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]
+                            [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]
+                        '
+                    >
+                        <div className='max-w-3xl space-y-4'>
+                
+                            <p>
+                                Appreciate and value your build, no matter the stage it's in.
+
+                                When you display your work, you're celebrating its uniqueness, its flaws, and the story behind it. Every mark, every imperfection, tells a part of the journey, making it truly yours.
+                            </p>
+
+                
+                        </div>
+                    </TextOverMedia>
+
                 </section>
             </div>
         </section>

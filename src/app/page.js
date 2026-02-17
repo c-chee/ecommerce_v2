@@ -1,6 +1,6 @@
 import Hero from '@/app/components/sections/hero';
-import Features from '@/app/components/sections/features'
-import ShopByCategory from '@/app/components/sections/ShopByCategory'; 
+import Features from '@/app/components/products/features'
+import ShopByCategory from '@/app/components/products/ShopByCategory'; 
 
 // Page Title
 export async function generateMetadata() {
