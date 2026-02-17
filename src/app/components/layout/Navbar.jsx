@@ -16,10 +16,12 @@ export default function Navbar() {
             setScrolled(window.scrollY > 50);
         };
 
-        window.addEventListener('scroll', handleScroll);
+        handleScroll();
 
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
 
     return (
         <header className='fixed w-full top-0 z-50 bg-black'>
