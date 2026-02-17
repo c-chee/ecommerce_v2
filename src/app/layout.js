@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
 
         <Navbar />
         
-        <main className='flex flex-col'>
+        <main className='flex flex-col pt-40'>
           {children}
         </main>
 

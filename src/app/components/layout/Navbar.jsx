@@ -22,7 +22,7 @@ export default function Navbar() {
     }, []);
 
     return (
-        <header className='sticky w-full top-0 z-50 bg-black'>
+        <header className='fixed w-full top-0 z-50 bg-black'>
             {/* shadow-[0px_2px_2px_rgb(62,62,62)] */}
 
             {/* --- Top Bar: Hamburger + Logo (Mobile) --- */}
