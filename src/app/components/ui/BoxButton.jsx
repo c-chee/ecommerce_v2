@@ -50,12 +50,12 @@ export default function BoxButton({
 
     // Navigation button
     if (typeof href === "string" && href && !disabled) {
-    return (
-        <Link href={href} className={styles}>
-            {content}
-        </Link>
-    );
-}
+        return (
+            <Link href={href} className={styles}>
+                {content}
+            </Link>
+        );
+    }
 
     // Normal button
     return (

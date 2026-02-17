@@ -11,12 +11,30 @@ export default function About() {
         <section className='bg-[var(--grey-black)]'>
             <div className='flex flex-col lg:max-w-7xl mx-auto px-6 lg:py-16 justify-center'>
 
+                {/* About Hero */}
                 <section className='pb-10'>
                     <h1 className='text-3xl font-semibold mb-6 place-self-start'>About</h1>
+
+                    <TextOverMedia
+                        video='/media/akuna.mp4'
+                        className='
+                            [mask-image:linear-gradient(to_bottom,black_0%,black_80%,transparent_100%)]
+                            [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_80%,transparent_100%)]
+                        '
+                        // [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] 
+                        // [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]
+
+                    >
+                        <div className='flex flex-col max-w-3xl space-y-4 mx-auto text-center font-[var(--font-walter)]'>
+                            <p style={{ fontFamily: "var(--font-walter)" }} className='text-[1.5em] md:text-[2.5em]  lg:text-[3.5em]'>Beauty in Imperfection</p>
+                        </div>
+                    </TextOverMedia>
                     
+                    {/* Brand Meaning */}
                     <TextOverMedia>
+                        
                         <div>
-                            <h2 className='text-3xl font-semibold'>
+                            <h2 className='text-[var(--light-orange)] text-xl font-semibold pb-5'>
                                 Wabi Sabi (侘寂)
                             </h2>
 
@@ -42,22 +60,16 @@ export default function About() {
 
                 
                         </div>
+
                     </TextOverMedia>
 
-                    <TextOverMedia
-                        video='/media/akuna.mp4'
-                        className='
-                            [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]
-                            [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]
-                        '
-                    >
-                        <div className='max-w-3xl space-y-4'>
+                    {/* Brand Quotes */}
+                    <TextOverMedia>
+                        <div>
                 
-                            <p>
-                                Appreciate and value your build, no matter the stage it's in.
-
-                                When you display your work, you're celebrating its uniqueness, its flaws, and the story behind it. Every mark, every imperfection, tells a part of the journey, making it truly yours.
-                            </p>
+                            <p>Appreciate and value your build, no matter the stage it's in. </p>
+                            
+                            <p>When you display your work, you're celebrating its uniqueness, its flaws, and the story behind it. Every mark, every imperfection, tells a part of the journey, making it truly yours.</p>
 
                 
                         </div>

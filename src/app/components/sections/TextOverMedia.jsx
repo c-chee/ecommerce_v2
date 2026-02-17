@@ -1,16 +1,15 @@
 'use client';
 
 export default function TextOverMedia({
-    // Props
     image,
     video,
     poster,
     children,
-    className=''
+    className = ''
 }) {
     return (
         <section
-            className={`overflow-hidden sticky w-full min-h-[35em] ${className}`}
+            className={`relative overflow-hidden w-full min-h-[20em] md:min-h-[30em] flex leading-loose ${className}`}
         >
             {/* Background Media */}
             {video ? (
@@ -24,23 +23,24 @@ export default function TextOverMedia({
                 >
                     <source src={video} type='video/mp4' />
                 </video>
-            ) : (
+            ) : image ? (
                 <img
                     src={image}
                     alt=''
                     className='absolute inset-0 w-full h-full object-cover'
                 />
-            )}
+            ) : null}
 
             {/* Overlay */}
-            <div
-                className={`absolute inset-0 bg-black/30`}
-            />
+            {(video || image) && (
+                <div className='absolute inset-0 bg-black/30' />
+            )}
 
             {/* Content */}
-            <div className='relative z-10 flex flex-col items-center justify-center text-start text-white px-2 py-16 h-full'>
+            <div className='relative z-10 flex flex-col justify-center items-start w-full text-left text-white px-6 py-16'>
                 {children}
             </div>
+
         </section>
     );
 }
