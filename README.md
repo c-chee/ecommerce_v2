@@ -63,7 +63,7 @@ npm install
 ### 3. Configure Environment Variables
 Create a .env.local file with your Railway database credentials:
 ```bash
-.env.example
+.env.local
 ```
 ### 4. Run Development Server
 ```bash
