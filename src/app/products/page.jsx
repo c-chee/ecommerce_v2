@@ -1,7 +1,7 @@
-'use client'; // Indicates that this is a client side component
+'use client'; // Make this entire page client-side
 
-import { useEffect, useState } from 'react'; // Import react hooks
-import { useSearchParams } from 'next/navigation'; // Read query params
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 // Component imports
 import ProductGrid from '@/app/components/products/ProductGrid';
@@ -9,63 +9,55 @@ import CategoryTabs from '@/app/components/products/CategoryTab';
 import SortBar from '@/app/components/products/SortBar';
 import Pagination from '@/app/components/products/Pagination';
 
-const PRODUCTS_PER_PAGE = 48; // Specifies the number of products per page, used in pagination
+const PRODUCTS_PER_PAGE = 48; // Number of products per page
 
-// react functional component
-// 'export default' allows other parts of your app to import this component
 export default function Products() {
+    const searchParams = useSearchParams(); // Client-only
+    const urlCategory = searchParams.get('category'); // ?category=sticker, etc.
 
-    // products, stores all the product data fetched from the server
-    // setProducts, function to update the products
     const [products, setProducts] = useState([]);
-    const [category, setCategory] = useState('all'); // Selects initial category filter
-    const [sort, setSort] = useState('featured'); // Selects inital sort method
-    const [page, setPage] = useState(1); // For pagination, sets to page 1
-    const [loading, setLoading] = useState(true); // For loading cards while waiting
-
-    // --- Read category from URL query string ---
-    const searchParams = useSearchParams();
-    const urlCategory = searchParams.get('category');
+    const [category, setCategory] = useState('all'); // Initial category filter
+    const [sort, setSort] = useState('featured'); // Initial sort method
+    const [page, setPage] = useState(1); // Pagination page
+    const [loading, setLoading] = useState(true); // Loading state
 
     // --- Fetch products from API ---
     useEffect(() => {
+        setLoading(true);
         fetch('/api/products')
             .then(res => res.json())
             .then(data => {
-                setProducts(data); // Update state to the fetched data
-                setLoading(false); // stop loading
+                setProducts(data);
+                setLoading(false);
             })
             .catch(console.error);
     }, []);
 
-    // --- Sync category state with URL ---
+    // --- Sync category from URL ---
     useEffect(() => {
         if (urlCategory) {
             setCategory(urlCategory);
-            setPage(1); // reset page when URL category changes
+            setPage(1); // Reset page when URL category changes
         }
     }, [urlCategory]);
 
     // --- CATEGORY FILTER ---
-    // Filters products based on selected category
     const filtered =
         category === 'all'
         ? products
-        : products.filter(p => p.type === category); // only show products matching category
+        : products.filter(p => p.type === category);
 
     // --- SORTING ---
-    // Sort products based on selected sort option
-    const sorted = [...filtered]; // Creates a copy of the filtered products list
+    let sorted = [...filtered];
     if (sort === 'a-z') sorted.sort((a, b) => a.name.localeCompare(b.name));
     if (sort === 'z-a') sorted.sort((a, b) => b.name.localeCompare(a.name));
     if (sort === 'low-high') sorted.sort((a, b) => a.price - b.price);
     if (sort === 'high-low') sorted.sort((a, b) => b.price - a.price);
 
     // --- PAGINATION ---
-    // ... for when there are more than 48 products
-    const totalPages = Math.ceil(sorted.length / PRODUCTS_PER_PAGE); // Calculates total number of pages based on products
-    const start = (page - 1) * PRODUCTS_PER_PAGE; // Index of the first product on current page
-    const visibleProducts = sorted.slice(start, start + PRODUCTS_PER_PAGE); // Extract only the products that need to be displayed
+    const totalPages = Math.ceil(sorted.length / PRODUCTS_PER_PAGE);
+    const start = (page - 1) * PRODUCTS_PER_PAGE;
+    const visibleProducts = sorted.slice(start, start + PRODUCTS_PER_PAGE);
 
     // ---------- CONFIG ----------
     const categories = [
@@ -79,9 +71,9 @@ export default function Products() {
     const sortOptions = [
         { value: 'featured', label: 'Featured' },
         { value: 'a-z', label: 'Alphabetical: A–Z' },
-        { value: 'z-a', label: 'Alphabetical: Z–A' },
-        { value: 'low-high', label: 'Price: Low to High' },
-        { value: 'high-low', label: 'Price: High to Low' },
+        { value: 'z-a', label: 'Alphabetical Z–A' },
+        { value: 'low-high', label: 'Price Low → High' },
+        { value: 'high-low', label: 'Price High → Low' },
     ];
 
     return (
@@ -95,7 +87,7 @@ export default function Products() {
                     active={category}
                     onChange={c => {
                         setCategory(c);
-                        setPage(1); // reset page when changing category
+                        setPage(1); // Reset page when changing tab
                     }}
                 />
 
