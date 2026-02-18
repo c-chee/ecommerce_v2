@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'; // Import react hooks
 // Component imports
 import { useParams } from 'next/navigation';
 import ProductGrid from '@/app/components/products/ProductGrid';
+import CategoryTabs from '@/app/components/products/CategoryTab';
 import SortBar from '@/app/components/products/SortBar';
 import Pagination from '@/app/components/products/Pagination';
 
@@ -18,6 +19,7 @@ const PRODUCTS_PER_PAGE = 48; // Specifies the number of products per page, used
 // 'export default' allows other parts of your app to import this component
 export default function CategoryPage() {
     const { slug } = useParams(); // 'stickers', 'apparel', etc.
+    const [category, setCategory] = useState('all'); // Selects initial category filter
     const [products, setProducts] = useState([]);
     const [sort, setSort] = useState('featured'); // Selects inital sort method
     const [page, setPage] = useState(1); // For pagination, stes to page 1
@@ -55,6 +57,14 @@ export default function CategoryPage() {
     const visibleProducts = sorted.slice(start, start + PRODUCTS_PER_PAGE); // Extract only the products that needs to be displayed
 
     // ---------- CONFIG ----------
+    const categories = [
+        { id: 'all', label: 'All' },
+        { id: 'sticker', label: 'Stickers' },
+        { id: 'apparel', label: 'Apparel' },
+        { id: 'accessories', label: 'Accessories' },
+        { id: 'lifestyle', label: 'Lifestyle' },
+    ];
+
     const sortOptions = [
         { value: 'featured', label: 'Featured' },
         { value: 'a-z', label: 'Alphabetical A–Z' },
@@ -69,7 +79,17 @@ export default function CategoryPage() {
                 <h1 className='text-3xl font-semibold mb-6'>
                     {slug.charAt(0).toUpperCase() + slug.slice(1)}
                 </h1>
-                
+
+                {/* Category Tabs */}
+                <CategoryTabs
+                    categories={categories}
+                    active={category}
+                    onChange={c => {
+                    setCategory(c);
+                    setPage(1); // reset page when changing category
+                    }}
+                />
+
                 <SortBar
                     total={sorted.length}
                     sort={sort}
