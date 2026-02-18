@@ -10,10 +10,10 @@ import QuoteBox from '@/app/components/ui/Quote';
 export default function About() {
     return (
         <section className='bg-[var(--grey-black)]'>
-            <div className='flex flex-col lg:max-w-7xl mx-auto px-6 lg:py-16 justify-center'>
+            <div className='flex flex-col justify-center lg:max-w-7xl mx-auto px-6 lg:py-16'>
 
                 {/* About Hero */}
-                <section className='pb-10'>
+                <section className=' flex flex-col pb-16'>
                     <h1 className='text-3xl font-semibold mb-6 place-self-start'>About</h1>
 
                     <TextOverMedia
@@ -66,6 +66,7 @@ export default function About() {
 
                     {/* Brand Quotes */}
                     <QuoteBox
+                        className='self-center'
                         quote="Appreciate and value your build, no matter the stage it's in. When you display your work, 
                                 you're celebrating its uniqueness, its flaws, and the story behind it. Every mark, every imperfection, 
                                 tells a part of the journey, making it truly yours."
