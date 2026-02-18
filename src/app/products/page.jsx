@@ -1,76 +1,63 @@
 /**
  * Products Page
- * /products
- * Filters by category via query string (?category=sticker)
+ * Uses client-side React state to read pre-selected category
  */
-'use client'; // Indicates this is a client side component
+'use client';
 
-import { useState, useEffect } from 'react'; // React hooks
-import { useSearchParams } from 'next/navigation'; // For query parameters
-
-// Component imports
+import { useEffect, useState } from 'react';
 import ProductGrid from '@/app/components/products/ProductGrid';
 import CategoryTabs from '@/app/components/products/CategoryTab';
 import SortBar from '@/app/components/products/SortBar';
 import Pagination from '@/app/components/products/Pagination';
 
-const PRODUCTS_PER_PAGE = 48; // Specifies the number of products per page, used in pagination
+const PRODUCTS_PER_PAGE = 48;
 
-// React functional component
 export default function ProductsPage() {
-    const searchParams = useSearchParams(); // Get query string
-    const urlCategory = searchParams?.get('category'); // ?category=<slug>
+    // --- States ---
+    const [products, setProducts] = useState([]);
+    const [category, setCategory] = useState('all'); // default to all
+    const [sort, setSort] = useState('featured');
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(true);
 
-    // --- State ---
-    const [products, setProducts] = useState([]); // stores all product data fetched
-    const [category, setCategory] = useState('all'); // Current category filter
-    const [sort, setSort] = useState('featured'); // Current sort method
-    const [page, setPage] = useState(1); // Current page for pagination
-    const [loading, setLoading] = useState(true); // Loading state
-
-    // --- Fetch products from API ---
+    // --- Fetch products ---
     useEffect(() => {
-        setLoading(true); // show loading cards
-
+        setLoading(true);
         fetch('/api/products')
             .then(res => res.json())
             .then(data => {
-                setProducts(data); // Update state to fetched data
-                setLoading(false); // stop loading
+                setProducts(data);
+                setLoading(false);
             })
-            .catch(console.error); // Log any errors
-    }, []); // Only fetch once
+            .catch(console.error);
+    }, []);
 
-    // --- Sync category from URL query ---
+    // --- Sync category from localStorage (Home Page redirect) ---
     useEffect(() => {
-        if (urlCategory) {
-            setCategory(urlCategory);
-            setPage(1); // Reset page when category changes
-        } else {
-            setCategory('all'); // Default to all
+        const storedCategory = window.localStorage.getItem('selectedCategory');
+        if (storedCategory) {
+            setCategory(storedCategory);
+            setPage(1);
+            window.localStorage.removeItem('selectedCategory'); // clear after use
         }
-    }, [urlCategory]);
+    }, []);
 
-    // --- CATEGORY FILTER ---
-    // Filters products based on selected category
-    const filtered =
-        category === 'all'
-            ? products
-            : products.filter(p => p.type === category);
+    // --- Filter ---
+    const filtered = category === 'all' ? products : products.filter(p => p.type === category);
 
-    // --- SORTING ---
-    let sorted = [...filtered]; // Create a copy for sorting
+    // --- Sort ---
+    let sorted = [...filtered];
     if (sort === 'a-z') sorted.sort((a, b) => a.name.localeCompare(b.name));
     if (sort === 'z-a') sorted.sort((a, b) => b.name.localeCompare(a.name));
     if (sort === 'low-high') sorted.sort((a, b) => a.price - b.price);
     if (sort === 'high-low') sorted.sort((a, b) => b.price - a.price);
 
-    // --- PAGINATION ---
-    const totalPages = Math.ceil(sorted.length / PRODUCTS_PER_PAGE); // Total number of pages
-    const start = (page - 1) * PRODUCTS_PER_PAGE; // Index of first product on current page
-    const visibleProducts = sorted.slice(start, start + PRODUCTS_PER_PAGE); // Products to display
+    // --- Pagination ---
+    const totalPages = Math.ceil(sorted.length / PRODUCTS_PER_PAGE);
+    const start = (page - 1) * PRODUCTS_PER_PAGE;
+    const visibleProducts = sorted.slice(start, start + PRODUCTS_PER_PAGE);
 
-    // ---------- CONFIG ----------
+    // --- Config ---
     const categories = [
         { id: 'all', label: 'All' },
         { id: 'sticker', label: 'Stickers' },
@@ -83,28 +70,24 @@ export default function ProductsPage() {
         { value: 'featured', label: 'Featured' },
         { value: 'a-z', label: 'Alphabetical: A–Z' },
         { value: 'z-a', label: 'Alphabetical: Z–A' },
-        { value: 'low-high', label: 'Price: Low to High' },
-        { value: 'high-low', label: 'Price: High to Low' },
+        { value: 'low-high', label: 'Price: Low → High' },
+        { value: 'high-low', label: 'Price: High → Low' },
     ];
 
     return (
         <section className='bg-[var(--grey-black)] pb-28'>
             <div className='max-w-7xl mx-auto px-6 lg:py-16'>
-                <h1 className='text-3xl font-semibold mb-6'>
-                    Products
-                </h1>
+                <h1 className='text-3xl font-semibold mb-6'>Products</h1>
 
-                {/* Category Tabs */}
                 <CategoryTabs
                     categories={categories}
                     active={category}
                     onChange={c => {
                         setCategory(c);
-                        setPage(1); // Reset page when changing category
+                        setPage(1);
                     }}
                 />
 
-                {/* Sort Bar */}
                 <SortBar
                     total={sorted.length}
                     sort={sort}
@@ -113,10 +96,8 @@ export default function ProductsPage() {
                     className='my-6'
                 />
 
-                {/* Product Grid */}
                 <ProductGrid products={visibleProducts} loading={loading} />
 
-                {/* Pagination */}
                 <Pagination
                     page={page}
                     totalPages={totalPages}

@@ -1,21 +1,24 @@
 /**
- * Redirect /products/[slug] → /products?category=[slug]
+ * Redirect to /products with category state
+ * Optional if you want pretty URLs like /products/sticker
  */
-'use client'; // Client-only for useRouter
+'use client';
 
 import { useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
 
 export default function CategoryRedirect() {
-    const { slug } = useParams(); // Get slug from URL
+    const { slug } = useParams();
     const router = useRouter();
 
-    // --- Redirect to query string format ---
     useEffect(() => {
         if (slug) {
-            router.replace(`/products?category=${slug}`);
+            // Redirect to main products page
+            // Category will be updated via React state there
+            router.replace('/products'); 
         }
     }, [slug, router]);
 
-    return null; // Nothing rendered
+    return null;
 }
+

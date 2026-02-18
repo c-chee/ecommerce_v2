@@ -4,20 +4,26 @@
  */
 'use client';
 
-// Component Imports
 import Link from 'next/link';
 import BoxButton from '@/app/components/ui/BoxButton';
 
-// Takes in props: title, image, slug (optional), or href (preferred)
-export default function LinkTile({ title, image, slug, href }) {
-    // --- Determine the link ---
-    // Use href if provided, otherwise fallback to slug
-    const linkHref = href || (slug ? `/products?category=${slug}` : '/');
+export default function LinkTile({ title, image, slug }) {
+    // --- Build the href to the products page ---
+    const href = '/products';
+
+    // Handle click: store selected category
+    const handleClick = () => {
+        if (slug) {
+            window.localStorage.setItem('selectedCategory', slug);
+        } else {
+            window.localStorage.removeItem('selectedCategory');
+        }
+    };
 
     return (
-        // Link attached to the tile
         <Link
-            href={linkHref} 
+            href={href}
+            onClick={handleClick}
             className='group relative overflow-hidden rounded-xl block'
         >
             {/* Background Image */}
@@ -42,11 +48,7 @@ export default function LinkTile({ title, image, slug, href }) {
 
             {/* Content */}
             <div className='absolute inset-0 flex flex-col items-center justify-center text-white text-center p-4'>
-                <h3 className='text-xl font-semibold mb-4'>
-                    {title}
-                </h3>
-
-                {/* Fake button styled like BoxButton */}
+                <h3 className='text-xl font-semibold mb-4'>{title}</h3>
                 <BoxButton asChild>
                     <span>Shop Now</span>
                 </BoxButton>
