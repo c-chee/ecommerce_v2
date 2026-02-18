@@ -1,6 +1,7 @@
 'use client'; // Indicates that this is a client side component
 
 import { useEffect, useState } from 'react'; // Import react hooks
+import { useSearchParams } from 'next/navigation'; // Read query params
 
 // Component imports
 import ProductGrid from '@/app/components/products/ProductGrid';
@@ -19,30 +20,42 @@ export default function Products() {
     const [products, setProducts] = useState([]);
     const [category, setCategory] = useState('all'); // Selects initial category filter
     const [sort, setSort] = useState('featured'); // Selects inital sort method
-    const [page, setPage] = useState(1); // For pagination, stes to page 1
+    const [page, setPage] = useState(1); // For pagination, sets to page 1
     const [loading, setLoading] = useState(true); // For loading cards while waiting
+
+    // --- Read category from URL query string ---
+    const searchParams = useSearchParams();
+    const urlCategory = searchParams.get('category');
 
     // --- Fetch products from API ---
     useEffect(() => {
         fetch('/api/products')
             .then(res => res.json())
             .then(data => {
-                setProducts(data);
-                setLoading(false);
+                setProducts(data); // Update state to the fetched data
+                setLoading(false); // stop loading
             })
             .catch(console.error);
     }, []);
 
+    // --- Sync category state with URL ---
+    useEffect(() => {
+        if (urlCategory) {
+            setCategory(urlCategory);
+            setPage(1); // reset page when URL category changes
+        }
+    }, [urlCategory]);
 
     // --- CATEGORY FILTER ---
-    // Filters products based on selecte category. 
+    // Filters products based on selected category
     const filtered =
         category === 'all'
         ? products
-        : products.filter(p => p.type === category);
+        : products.filter(p => p.type === category); // only show products matching category
 
     // --- SORTING ---
-    const sorted = [...filtered]; // Creates a copy of the filterd products list
+    // Sort products based on selected sort option
+    const sorted = [...filtered]; // Creates a copy of the filtered products list
     if (sort === 'a-z') sorted.sort((a, b) => a.name.localeCompare(b.name));
     if (sort === 'z-a') sorted.sort((a, b) => b.name.localeCompare(a.name));
     if (sort === 'low-high') sorted.sort((a, b) => a.price - b.price);
@@ -50,9 +63,9 @@ export default function Products() {
 
     // --- PAGINATION ---
     // ... for when there are more than 48 products
-    const totalPages = Math.ceil(sorted.length / PRODUCTS_PER_PAGE); // Calculates totl number of page based on product
-    const start = (page - 1) * PRODUCTS_PER_PAGE; // Calculates the inec of the first product, current page
-    const visibleProducts = sorted.slice(start, start + PRODUCTS_PER_PAGE); // Extract only the products that needs to be displayed
+    const totalPages = Math.ceil(sorted.length / PRODUCTS_PER_PAGE); // Calculates total number of pages based on products
+    const start = (page - 1) * PRODUCTS_PER_PAGE; // Index of the first product on current page
+    const visibleProducts = sorted.slice(start, start + PRODUCTS_PER_PAGE); // Extract only the products that need to be displayed
 
     // ---------- CONFIG ----------
     const categories = [
@@ -81,8 +94,8 @@ export default function Products() {
                     categories={categories}
                     active={category}
                     onChange={c => {
-                    setCategory(c);
-                    setPage(1); // reset page when changing category
+                        setCategory(c);
+                        setPage(1); // reset page when changing category
                     }}
                 />
 
@@ -97,7 +110,6 @@ export default function Products() {
 
                 {/* Product Grid */}
                 <ProductGrid products={visibleProducts} loading={loading} />
-
 
                 {/* Pagination */}
                 <Pagination

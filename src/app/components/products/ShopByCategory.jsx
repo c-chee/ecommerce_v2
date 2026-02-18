@@ -6,22 +6,22 @@ export default function ShopByCategory() {
         {
             title: 'Stickers',
             image: '/akuna-top-view.JPEG',
-            slug: 'sticker',
+            href: '/products?category=sticker',
         },
         {
             title: 'Apparel',
             image: '/products/shirt-mascot-2.PNG',
-            slug: 'apparel',
+            href: '/products?category=apparel',
         },
         {
             title: 'Accessories',
             image: '/products/tsurikawa-2.PNG',
-            slug: 'accessories',
+            href: '/products?category=accessories',
         },
         {
             title: 'Lifestyle',
             image: '/products/cup-3.PNG',
-            slug: 'lifestyle',
+            href: '/products?category=lifestyle',
         },
     ];
 
@@ -43,8 +43,9 @@ export default function ShopByCategory() {
                 >
                     {/* Loops though array of objects above with a callback function (cat = one category object) and returns each component individually */}
                     {categories.map((cat) => (
-                        <LinkTile key={cat.slug} {...cat} />
+                        <LinkTile key={cat.href} {...cat} />
                     ))}
+
                 </div>
             </div>
 

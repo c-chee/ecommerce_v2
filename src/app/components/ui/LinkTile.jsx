@@ -3,12 +3,12 @@ import Link from 'next/link';
 import BoxButton from '@/app/components/ui/BoxButton';
 
 // Takes in props, specified when used
-export default function LinkTile({ title, image, slug }) {
+export default function LinkTile({ title, image, href }) {
     return (
         // Link attched to the tile
         // slug comes from the categories filter onthe products page
         <Link
-            href={`/products/category/${slug}`}
+            href={href}
             className='group relative overflow-hidden rounded-xl block '
         >
 
