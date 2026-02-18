@@ -1,3 +1,6 @@
+'use client';
+
+// Component Imports
 import LinkTile from '@/app/components/ui/LinkTile';
 
 export default function ShopByCategory() {
@@ -6,22 +9,22 @@ export default function ShopByCategory() {
         {
             title: 'Stickers',
             image: '/akuna-top-view.JPEG',
-            href: '/products?category=sticker',
+            slug: 'sticker', // matches product.type in db
         },
         {
             title: 'Apparel',
             image: '/products/shirt-mascot-2.PNG',
-            href: '/products?category=apparel',
+            slug: 'apparel',
         },
         {
             title: 'Accessories',
             image: '/products/tsurikawa-2.PNG',
-            href: '/products?category=accessories',
+            slug: 'accessories',
         },
         {
             title: 'Lifestyle',
             image: '/products/cup-3.PNG',
-            href: '/products?category=lifestyle',
+            slug: 'lifestyle',
         },
     ];
 
@@ -41,11 +44,16 @@ export default function ShopByCategory() {
                         lg:grid-cols-4
                     '
                 >
-                    {/* Loops though array of objects above with a callback function (cat = one category object) and returns each component individually */}
+                    {/* Loops through array of objects above with a callback function (cat = one category object) and returns each component individually */}
                     {categories.map((cat) => (
-                        <LinkTile key={cat.href} {...cat} />
+                        <LinkTile
+                            key={cat.slug}
+                            title={cat.title}
+                            image={cat.image}
+                            // --- Pass href with query param for filtering ---
+                            href={`/products?category=${cat.slug}`}
+                        />
                     ))}
-
                 </div>
             </div>
 
