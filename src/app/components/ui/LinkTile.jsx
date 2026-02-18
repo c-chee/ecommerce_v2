@@ -1,36 +1,35 @@
-'use client'; // Client-side component
+/**
+ * LinkTile Component
+ * Displays a clickable category/product tile with an optional image
+ */
+'use client';
 
 // Component Imports
 import Link from 'next/link';
 import BoxButton from '@/app/components/ui/BoxButton';
 
-// Takes in props, specified when used
-// - title: string, the name of the category
-// - image: optional string, URL of the background image
-// - href: string, the URL to navigate to when clicked
-export default function LinkTile({ title, image, href }) {
-    // --- Ensure href always has a value ---
-    const linkHref = href || '/products'; // fallback to /products if not provided
+// Takes in props: title, image, slug (optional), or href (preferred)
+export default function LinkTile({ title, image, slug, href }) {
+    // --- Determine the link ---
+    // Use href if provided, otherwise fallback to slug
+    const linkHref = href || (slug ? `/products?category=${slug}` : '/');
 
     return (
         // Link attached to the tile
-        // Clicking navigates to the correct products page/category
         <Link
-            href={linkHref}
+            href={linkHref} 
             className='group relative overflow-hidden rounded-xl block'
         >
             {/* Background Image */}
-            {image && (
-                <img
-                    src={image}
-                    alt={title}
-                    className='
-                        w-full h-64 sm:h-72 md:h-80 object-cover
-                        transition duration-500
-                        group-hover:scale-110
-                    '
-                />
-            )}
+            <img
+                src={image}
+                alt={title}
+                className='
+                    w-full h-64 sm:h-72 md:h-80 object-cover
+                    transition duration-500
+                    group-hover:scale-110
+                '
+            />
 
             {/* Overlay */}
             <div
@@ -47,8 +46,9 @@ export default function LinkTile({ title, image, href }) {
                     {title}
                 </h3>
 
-                <BoxButton>
-                    Shop Now
+                {/* Fake button styled like BoxButton */}
+                <BoxButton asChild>
+                    <span>Shop Now</span>
                 </BoxButton>
             </div>
         </Link>

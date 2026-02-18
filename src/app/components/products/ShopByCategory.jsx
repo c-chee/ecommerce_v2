@@ -1,15 +1,19 @@
+/**
+ * Shop by Category section
+ * Displays category cards linking to the products page with pre-selected category
+ */
 'use client';
 
-// Component Imports
 import LinkTile from '@/app/components/ui/LinkTile';
 
 export default function ShopByCategory() {
-    // --- Props ---
+    // --- CATEGORY DATA ---
+    // Each category has a title, image, and slug used for filtering
     const categories = [
         {
             title: 'Stickers',
             image: '/akuna-top-view.JPEG',
-            slug: 'sticker', // matches product.type in db
+            slug: 'sticker',
         },
         {
             title: 'Apparel',
@@ -30,12 +34,13 @@ export default function ShopByCategory() {
 
     return (
         <section className='flex flex-col items-center justify-start w-full bg-[var(--grey-black)] lg:min-h-[40em]'>
-
             <div className='max-w-7xl mx-auto px-6 py-16'>
+                {/* SECTION TITLE */}
                 <h2 className='text-3xl font-semibold mb-10 text-center'>
                     - Shop by Category -
                 </h2>
 
+                {/* CATEGORY GRID */}
                 <div
                     className='
                         grid gap-6
@@ -44,19 +49,18 @@ export default function ShopByCategory() {
                         lg:grid-cols-4
                     '
                 >
-                    {/* Loops through array of objects above with a callback function (cat = one category object) and returns each component individually */}
+                    {/* Loop through categories and create a tile for each */}
                     {categories.map((cat) => (
                         <LinkTile
                             key={cat.slug}
                             title={cat.title}
                             image={cat.image}
-                            // --- Pass href with query param for filtering ---
-                            href={`/products?category=${cat.slug}`}
+                            href={`/products?category=${cat.slug}`} // full link, pre-selects category
                         />
                     ))}
+
                 </div>
             </div>
-
         </section>
     );
 }

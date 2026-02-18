@@ -1,7 +1,12 @@
-'use client'; // Indicates that this is a client side component
+/**
+ * Products Page
+ * /products
+ * Filters by category via query string (?category=sticker)
+ */
+'use client'; // Indicates this is a client side component
 
-import { useEffect, useState } from 'react'; // Import react hooks
-import { useSearchParams } from 'next/navigation'; // For reading query params
+import { useState, useEffect } from 'react'; // React hooks
+import { useSearchParams } from 'next/navigation'; // For query parameters
 
 // Component imports
 import ProductGrid from '@/app/components/products/ProductGrid';
@@ -11,37 +16,38 @@ import Pagination from '@/app/components/products/Pagination';
 
 const PRODUCTS_PER_PAGE = 48; // Specifies the number of products per page, used in pagination
 
-// react functional component
-// 'export default' allows other parts of your app to import this component
-export default function Products() {
-    const searchParams = useSearchParams(); // get query params
-    const urlCategory = searchParams.get('category'); // read category from URL
+// React functional component
+export default function ProductsPage() {
+    const searchParams = useSearchParams(); // Get query string
+    const urlCategory = searchParams?.get('category'); // ?category=<slug>
 
     // --- State ---
-    const [products, setProducts] = useState([]); // all products fetched from API
-    const [category, setCategory] = useState(urlCategory || 'all'); // initial category filter
-    const [sort, setSort] = useState('featured'); // initial sort method
-    const [page, setPage] = useState(1); // pagination page
-    const [loading, setLoading] = useState(true); // loading state
+    const [products, setProducts] = useState([]); // stores all product data fetched
+    const [category, setCategory] = useState('all'); // Current category filter
+    const [sort, setSort] = useState('featured'); // Current sort method
+    const [page, setPage] = useState(1); // Current page for pagination
+    const [loading, setLoading] = useState(true); // Loading state
 
     // --- Fetch products from API ---
     useEffect(() => {
-        setLoading(true); // show loading cards while fetching
-        fetch('/api/products') // GET /api/products
-            .then(res => res.json()) // parse JSON
+        setLoading(true); // show loading cards
+
+        fetch('/api/products')
+            .then(res => res.json())
             .then(data => {
-                setProducts(data); // set all products
+                setProducts(data); // Update state to fetched data
                 setLoading(false); // stop loading
             })
-            .catch(console.error);
-    }, []);
+            .catch(console.error); // Log any errors
+    }, []); // Only fetch once
 
-    // --- Sync category from URL ---
-    // This ensures the filter updates when the URL changes
+    // --- Sync category from URL query ---
     useEffect(() => {
         if (urlCategory) {
             setCategory(urlCategory);
-            setPage(1); // reset page when category changes
+            setPage(1); // Reset page when category changes
+        } else {
+            setCategory('all'); // Default to all
         }
     }, [urlCategory]);
 
@@ -49,20 +55,20 @@ export default function Products() {
     // Filters products based on selected category
     const filtered =
         category === 'all'
-        ? products
-        : products.filter(p => p.type === category);
+            ? products
+            : products.filter(p => p.type === category);
 
     // --- SORTING ---
-    const sorted = [...filtered]; // copy filtered products
+    let sorted = [...filtered]; // Create a copy for sorting
     if (sort === 'a-z') sorted.sort((a, b) => a.name.localeCompare(b.name));
     if (sort === 'z-a') sorted.sort((a, b) => b.name.localeCompare(a.name));
     if (sort === 'low-high') sorted.sort((a, b) => a.price - b.price);
     if (sort === 'high-low') sorted.sort((a, b) => b.price - a.price);
 
     // --- PAGINATION ---
-    const totalPages = Math.ceil(sorted.length / PRODUCTS_PER_PAGE); // total pages
-    const start = (page - 1) * PRODUCTS_PER_PAGE; // index of first product on current page
-    const visibleProducts = sorted.slice(start, start + PRODUCTS_PER_PAGE); // products to display
+    const totalPages = Math.ceil(sorted.length / PRODUCTS_PER_PAGE); // Total number of pages
+    const start = (page - 1) * PRODUCTS_PER_PAGE; // Index of first product on current page
+    const visibleProducts = sorted.slice(start, start + PRODUCTS_PER_PAGE); // Products to display
 
     // ---------- CONFIG ----------
     const categories = [
@@ -84,24 +90,26 @@ export default function Products() {
     return (
         <section className='bg-[var(--grey-black)] pb-28'>
             <div className='max-w-7xl mx-auto px-6 lg:py-16'>
-                <h1 className='text-3xl font-semibold mb-6'>Products</h1>
+                <h1 className='text-3xl font-semibold mb-6'>
+                    Products
+                </h1>
 
                 {/* Category Tabs */}
                 <CategoryTabs
                     categories={categories}
                     active={category}
                     onChange={c => {
-                        setCategory(c); // update selected category
-                        setPage(1); // reset page when changing category
+                        setCategory(c);
+                        setPage(1); // Reset page when changing category
                     }}
                 />
 
                 {/* Sort Bar */}
                 <SortBar
-                    total={sorted.length} // show total filtered products
+                    total={sorted.length}
                     sort={sort}
                     options={sortOptions}
-                    onSortChange={setSort} // update sort method
+                    onSortChange={setSort}
                     className='my-6'
                 />
 
@@ -112,7 +120,7 @@ export default function Products() {
                 <Pagination
                     page={page}
                     totalPages={totalPages}
-                    onChange={setPage} // update page number
+                    onChange={setPage}
                 />
             </div>
         </section>
