@@ -2,17 +2,23 @@
 
 import { useEffect, useRef, useState } from 'react';
 import ProductCard from '@/app/components/products/ProductCard';
+import ProductCardLoading from '@/app/components/products/ProductCardLoading';
 
 export default function ProductCarousel() {
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
     const containerRef = useRef();
 
     useEffect(() => {
         fetch('/api/products')
             .then(res => res.json())
-            .then(data => setProducts(data.slice(0, 8)))
+            .then(data => {
+                setProducts(data.slice(0, 8));
+                setLoading(false);
+            })
             .catch(err => console.error('Fetch error:', err));
     }, []);
+
 
     const scroll = (direction) => {
         const container = containerRef.current;
@@ -47,21 +53,37 @@ export default function ProductCarousel() {
                     ref={containerRef}
                     className='flex gap-4 sm:gap-6 overflow-x-auto scroll-smooth no-scrollbar flex-1 py-4 px-2 sm:px-0'
                 >
-                    {products.map((p) => (
-                        <div
-                            key={p.id}
-                            className='
-                                min-w-[90%]
-                                sm:min-w-[70%]
-                                md:min-w-[50%]
-                                lg:min-w-[33%]
-                                xl:min-w-[25%]
-                            '
-                        >
-                            <ProductCard product={p} />
-                        </div>
-                    ))}
+                    {loading
+                        ? Array.from({ length: 6 }).map((_, i) => (
+                            <div
+                                key={i}
+                                className='
+                                    min-w-[90%]
+                                    sm:min-w-[70%]
+                                    md:min-w-[50%]
+                                    lg:min-w-[33%]
+                                    xl:min-w-[25%]
+                                '
+                            >
+                                <ProductCardLoading />
+                            </div>
+                        ))
+                        : products.map((p) => (
+                            <div
+                                key={p.id}
+                                className='
+                                    min-w-[90%]
+                                    sm:min-w-[70%]
+                                    md:min-w-[50%]
+                                    lg:min-w-[33%]
+                                    xl:min-w-[25%]
+                                '
+                            >
+                                <ProductCard product={p} />
+                            </div>
+                        ))}
                 </div>
+
 
                 {/* Right Arrow */}
                 <button

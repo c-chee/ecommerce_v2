@@ -38,7 +38,7 @@ export default function LinkTile({ title, image, slug }) {
                     {title}
                 </h3>
 
-                <BoxButton href={`/products/category/${slug}`}>
+                <BoxButton>
                     Shop Now
                 </BoxButton>
 

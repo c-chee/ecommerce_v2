@@ -9,6 +9,7 @@ export default function BoxButton({
     className = '',
     type = 'button',
     disabled = false,
+    asChild = false,
     }) {
 
     const styles = `
@@ -47,6 +48,12 @@ export default function BoxButton({
             </span>
         </>
     );
+
+
+    // Used inside another Link
+    if (asChild) {
+        return <span className={styles}>{content}</span>;
+    }
 
     // Navigation button
     if (typeof href === "string" && href && !disabled) {

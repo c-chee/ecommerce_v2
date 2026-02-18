@@ -17,18 +17,25 @@ const PRODUCTS_PER_PAGE = 48; // Specifies the number of products per page, used
 // react functional component
 // 'export default' allows other parts of your app to import this component
 export default function CategoryPage() {
-    const { slug } = useParams(); // "stickers", "apparel", etc.
+    const { slug } = useParams(); // 'stickers', 'apparel', etc.
     const [products, setProducts] = useState([]);
     const [sort, setSort] = useState('featured'); // Selects inital sort method
     const [page, setPage] = useState(1); // For pagination, stes to page 1
+    const [loading, setLoading] = useState(true); // For loading cards while waiting
 
     // --- Fetch products from API ---
     useEffect(() => {
+        setLoading(true);   // show loading cards
+        setPage(1);         // reset page when category changes
+
         fetch('/api/products') // GET /api/products
-        .then(res => res.json()) // Convert res to JSON
-        .then(setProducts) // Update state to the fetched data
-        .catch(console.error); // To log any errors
-    }, []);
+            .then(res => res.json()) // Convert res to JSON
+            .then(data => {
+                setProducts(data); // Update state to the fetched data
+                setLoading(false); // stop loading
+            })
+            .catch(console.error); // To log any errors
+    }, [slug]); // refetch when slug changes
 
     // --- CATEGORY FILTER ---
     // Filter by category [slug]
@@ -57,26 +64,28 @@ export default function CategoryPage() {
     ];
 
     return (
-        <main className="max-w-7xl mx-auto px-6 py-12">
-        <h1 className="text-3xl font-semibold mb-6">
-            {slug.charAt(0).toUpperCase() + slug.slice(1)}
-        </h1>
+        <section className='bg-[var(--grey-black)] pb-28'>
+            <div className='max-w-7xl mx-auto px-6 lg:py-16'>
+                <h1 className='text-3xl font-semibold mb-6'>
+                    {slug.charAt(0).toUpperCase() + slug.slice(1)}
+                </h1>
+                
+                <SortBar
+                    total={sorted.length}
+                    sort={sort}
+                    options={sortOptions}
+                    onSortChange={setSort}
+                    className='mb-6'
+                />
 
-        <SortBar
-            total={sorted.length}
-            sort={sort}
-            options={sortOptions}
-            onSortChange={setSort}
-            className="mb-6"
-        />
+                <ProductGrid products={visibleProducts} loading={loading} />
 
-        <ProductGrid products={visibleProducts} />
-
-        <Pagination
-            page={page}
-            totalPages={totalPages}
-            onChange={setPage}
-        />
-        </main>
+                <Pagination
+                    page={page}
+                    totalPages={totalPages}
+                    onChange={setPage}
+                />
+            </div>
+        </section>
     );
 }

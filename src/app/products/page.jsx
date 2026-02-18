@@ -20,14 +20,19 @@ export default function Products() {
     const [category, setCategory] = useState('all'); // Selects initial category filter
     const [sort, setSort] = useState('featured'); // Selects inital sort method
     const [page, setPage] = useState(1); // For pagination, stes to page 1
+    const [loading, setLoading] = useState(true); // For loading cards while waiting
 
     // --- Fetch products from API ---
     useEffect(() => {
-        fetch('/api/products') // GET /api/products
-        .then(res => res.json()) // Convert res to JSON
-        .then(setProducts)  // Update state to the fetched data
-        .catch(console.error); // To log any errors
+        fetch('/api/products')
+            .then(res => res.json())
+            .then(data => {
+                setProducts(data);
+                setLoading(false);
+            })
+            .catch(console.error);
     }, []);
+
 
     // --- CATEGORY FILTER ---
     // Filters products based on selecte category. 
@@ -91,7 +96,8 @@ export default function Products() {
                 />
 
                 {/* Product Grid */}
-                <ProductGrid products={visibleProducts} />
+                <ProductGrid products={visibleProducts} loading={loading} />
+
 
                 {/* Pagination */}
                 <Pagination
